@@ -1,0 +1,60 @@
+Imm begin
+	Imm32 begin
+		bin32
+		hex32
+		dec32
+		Imm16 begin
+			Imm8 begin
+				bin8
+				hex8
+				dec8
+			Imm8 end
+			bin16
+			hex16
+			dec16
+		Imm16 end
+	Imm32 end
+Imm end
+
+R32 begin
+	reg32
+R32 end
+
+R8 begin
+	reg8
+R8 end
+Label begin
+	PlainLabel begin
+		offset
+	PlainLabel end
+	Labelwithseg begin
+		seg:offset
+	Labelwithseg end
+Label end
+Mem32 begin
+	[reg32 + reg32]
+	[reg32] + [reg32]
+	[reg32][reg32]
+	seg:[reg32 + reg32]
+	seg:[reg32] + [reg32]
+	seg:[reg32] + seg:[reg32]
+	seg:[reg32][reg32]
+Mem32 end
+Mem32_32 begin
+	dword ptr [reg32 + reg32]
+	dword ptr [reg32] + [reg32]
+	dword ptr [reg32][reg32]
+	dword ptr seg:[reg32 + reg32]
+	dword ptr seg:[reg32][reg32]
+	dword ptr seg:[reg32] + [reg32]
+	dword ptr seg:[reg32] + seg:[reg32]
+Mem32_32 end
+Mem32_8 begin
+	byte ptr [reg32 + reg32]
+	byte ptr [reg32] + [reg32]
+	byte ptr [reg32][reg32]
+	byte ptr seg:[reg32 + reg32]
+	byte ptr seg:[reg32] + [reg32]
+	byte ptr seg:[reg32] + seg:[reg32]
+	byte ptr seg:[reg32][reg32]
+Mem32_8 end

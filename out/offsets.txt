@@ -1,0 +1,24 @@
+0000000000    Data SEGMENT 
+0000000000        FIRST DB 1111111b
+0000000001        sec dw 0fffh
+0000000003        Th1 DD 12
+0000000007    Data ENDS
+0000000000    
+0000000000    
+0000000000    
+0000000000    END
+SymbolName     Type      Value
+FIRST          Byte      DATA:0000
+SEC            Word      DATA:0001
+TH1            Dword     DATA:0003
+
+SEGMENT        SIZE      BIT
+DATA           7         32
+
+SEGMENT        DESTINATION    
+CS             Nothing        
+DS             Nothing        
+ES             Nothing        
+FS             Nothing        
+GS             Nothing        
+SS             Nothing        

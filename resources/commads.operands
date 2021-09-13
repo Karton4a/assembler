@@ -1,0 +1,26 @@
+stc                | F9h
+dec r32            | 48h
+dec r8             | FEh | /1
+pop mem32          | 8Fh | /0
+pop mem32_32       | 8Fh | /0
+pop r32            | 58h
+bsr r32,r32        | BDh | p
+mov r32,imm        | B8h | s
+mov r8,imm8        | B0h | s
+and r32,mem32      | 23h
+and r32,mem32_32   | 23h
+and r32 mem32_8    | 22h
+and r8 mem32_8     | 22h
+and r8 mem32	   | 22h
+or mem32,r32       | 09h
+or mem32_32,r32    | 09h
+or mem32_8,r32     | 08h
+or mem32_8,r8      | 08h
+or mem32, r8	   | 08h
+add mem32_32,imm8  | 83h | /0 s
+add mem32_32,imm   | 81h
+add mem32_8, imm8  | 80h
+jmp PlainLabel     | EBh
+jmp PlainLabel     | E9h
+jz PlainLabel      | 74h
+jz PlainLabel      | 84h | p

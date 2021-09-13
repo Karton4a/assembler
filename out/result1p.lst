@@ -1,0 +1,77 @@
+0000000000                         Data SEGMENT 
+0000000000 7f                          FIRST DB 001111111b
+0000000001 80                      A db -128
+0000000002 fa                      b db 0fah
+0000000003 0f ff                       sec dw 0fffh
+0000000005 12 34                   ccccc dw 01234h
+0000000007 00 00 00 0c                 Th1 DD 12
+000000000b 12 34 56 78             c dd 12345678h
+000000000f ff ff ff f1             cc dd -15
+0000000013 00 00 2a aa             ccc dd 010101010101010b
+0000000017                         Data ENDS
+                        
+0000000000                         Code segment
+0000000000 eb 03 90 90 90          jmp begin
+begin:
+[ 15 ] : Parser error BEGIN already defined begin:
+0000000005 eb fe                   	jmp begin
+0000000007 f9                      	Stc
+0000000008 48                      	Dec eax
+0000000009 fe cf                   	Dec bh
+000000000b 74 f8                   	Jz begin
+000000000d 8f 04 32                	Pop dword ptr [edx + esi]
+0000000010 8f 04 32                	Pop dword ptr ds:[edx + esi]
+0000000013 8f 04 3c                 Pop dword ptr [esp + edi]
+0000000016 8f 04 3c                 Pop dword ptr ds:[esp + edi]
+0000000019 36 8f 04 3c              Pop dword ptr ss:[esp + edi]
+000000001d 0f bd c3                	Bsr eax,ebx
+0000000020 eb 43 90 90 90          	jmp end_1
+0000000025 22 04 0b                	And al,[ebx+ecx]
+0000000028 23 14 0b                	And edx,[ebx+ecx]
+000000002b 23 14 0b                	And edx,ds:[ebx+ecx]
+000000002e 23 54 0d 00             And edx,[ebp+ecx]
+0000000032 23 54 0d 00             And edx,ss:[ebp+ecx]
+0000000036 3e 23 54 0d 00          And edx,ds:[ebp+ecx]
+000000003b 09 0c 33                	Or dword ptr [ebx + esi] , ecx
+000000003e b0 0f                   Mov al,0fh
+0000000040 b0 ff                   Mov al,0ffh
+0000000042 ba 00 00 00 3e          Mov edx,111110b
+0000000047 b0 fb                   Mov al,-5
+0000000049 2e 81 04 0a ff ff ff ff 	Add dword ptr cs:[edx + ecx],0ffffffffh
+0000000051 74 12 90 90 90 90       Jz end_1
+0000000057 eb ac                   jmp begin
+0000000059 0f ff                   var dw 0fffh
+000000005b ff ff ff f1             cccc dd -15
+000000005f 74 04 90 90 90 90       Jz end_1
+[ 45 ] : Parser error END_1 already defined end_1:
+0000000065 74 fe                   Jz end_1
+0000000067                         Code ENDS
+0000000000                         END
+
+Errors : 2
+SymbolName     Type      Value
+A              Byte      DATA:0001
+B              Byte      DATA:0002
+BEGIN          Near      CODE:0005
+C              Dword     DATA:000b
+CC             Dword     DATA:000f
+CCC            Dword     DATA:0013
+CCCC           Dword     CODE:005b
+CCCCC          Word      DATA:0005
+END_1          Near      CODE:0065
+FIRST          Byte      DATA:0000
+SEC            Word      DATA:0003
+TH1            Dword     DATA:0007
+VAR            Word      CODE:0059
+
+SEGMENT        SIZE      BIT
+DATA           17        32
+CODE           67        32
+
+SEGMENT        DESTINATION    
+CS             Nothing        
+DS             Nothing        
+ES             Nothing        
+FS             Nothing        
+GS             Nothing        
+SS             Nothing        

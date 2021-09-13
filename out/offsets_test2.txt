@@ -1,0 +1,51 @@
+0000000000    Data SEGMENT 
+0000000000        FIRST DB 1111111b
+0000000001        sec dw 0fffh
+0000000003        Th1 DD 12
+0000000007    c dw fffh
+0000000009    Data ENDS
+0000000000    
+0000000000    Code SEGMENT 
+0000000000    
+0000000000    begin:
+0000000000    Stc
+0000000001    Dec eax
+0000000002    Pop dword ptr [edx + esi]
+0000000005    Pop  [edx + esi]
+0000000008    Bsr eax,ebx
+000000000b    Bsr eax,ebx
+000000000e    jmp begin
+0000000010    And al,[esp+ebp]
+0000000013    And al,[ebp+esp]
+0000000016    And al,[ebp+ebp]
+000000001a    Jz end_1
+0000000020    Or dword ptr [ebx + esi] , ecx
+0000000023    Mov al,0fh
+0000000025    Add dword ptr cs:[edx + ecx],1fffffffh
+000000002d    Jz end_1
+0000000033    jmp begin
+0000000035    end_1:
+0000000035    Code ENDS
+0000000000    END
+SymbolName     Type      Value
+A              Byte      DATA:0007
+B              Byte      DATA:0007
+BEGIN          Near      CODE:0000
+C              Word      DATA:0007
+END_1          Near      CODE:0035
+FIRST          Byte      DATA:0000
+SEC            Word      DATA:0001
+TH1            Dword     DATA:0003
+VAR            Word      CODE:0035
+
+SEGMENT        SIZE      BIT
+DATA           9         32
+CODE           35        32
+
+SEGMENT        DESTINATION    
+CS             Nothing        
+DS             Nothing        
+ES             Nothing        
+FS             Nothing        
+GS             Nothing        
+SS             Nothing        

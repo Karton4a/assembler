@@ -1,0 +1,73 @@
+0000000000                         Data SEGMENT 
+0000000000 7f                          FIRST DB 1111111b
+0000000001 0f ff                       sec dw 0fffh
+0000000003 00 00 00 0c                 Th1 DD 12
+[ 5 ] : Parser error DB Bad arguments a db 101010101b
+[ 6 ] : Parser error DB Bad arguments b db -129
+0000000007 00 00 00 01             sec dd 1
+000000000b 0f ff                   c dw fffh
+[ 9 ] : Lexer error unknown identifier DDDDDD  dddddd db -1
+[ 10 ] : Lexer error unknown identifier 123456789H  d dd 123456789h
+000000000d                         Data ENDS
+                        
+0000000000                         Code SEGMENT 
+                        
+[ 15 ] : Parser error BEGIN already defined begin:
+[ 16 ] : Parser error STC Bad arguments Stc Dec eax
+0000000000 f9                      Stc
+0000000001 48                      Dec eax
+[ 19 ] : Parser error DEC Bad arguments Dec ax
+[ 20 ] : Parser error DEC Bad arguments Dec 
+[ 21 ] : Lexer error unknown identifier BEGIN1  begin1:
+[ 22 ] : Parser error DEC Bad arguments Dec dword ptr [ebx + esi]
+0000000002 8f 04 32                Pop dword ptr [edx + esi]
+0000000005 8f 04 32                Pop  [edx + esi]
+0000000008 0f bd c3                Bsr eax,ebx
+[ 26 ] : Parser error BSR Bad arguments Bsr al,bl
+000000000b 0f bd c3                Bsr eax,ebx
+[ 28 ] : Parser error BSR Bad arguments Bsr eax,bl
+000000000e eb f0                   jmp begin
+[ 30 ] : Parser error far jumps not allowed jmp sec
+[ 31 ] : Parser error not a valid base/index expression And al,[esp+esp]
+0000000010 22 04 2c                And al,[esp+ebp]
+0000000013 22 04 2c                And al,[ebp+esp]
+0000000016 22 44 2d 00             And al,[ebp+ebp]
+[ 35 ] : Parser error AND Bad arguments And [ebp+ebp], al
+[ 36 ] : Parser error equation parse error And al,[esp+eax
+000000001a 74 19 90 90 90 90       Jz end_1
+0000000020 09 0c 33                Or dword ptr [ebx + esi] , ecx
+0000000023 b0 0f                   Mov al,0fh
+[ 40 ] : Parser error MOV Bad arguments Mov al,0fffh
+0000000025 2e 81 04 0a 1f ff ff ff Add dword ptr cs:[edx + ecx],1fffffffh
+[ 42 ] : Parser error equation parse error Add dword ptr al:[edx + ecx],1fffffffh
+000000002d 74 06 90 90 90 90       Jz end_1
+0000000033 eb cb                   jmp begin
+[ 45 ] : Parser error DW Bad arguments var dw 0fffaah
+[ 46 ] : Parser error MOV Bad arguments Mov al,bl
+[ 47 ] : Parser error END_1 already defined end_1:
+0000000035                         Code ENDS
+0000000000                         END
+
+Errors : 15
+SymbolName     Type      Value
+A              Byte      DATA:0007
+B              Byte      DATA:0007
+BEGIN          Near      CODE:0000
+C              Word      DATA:0007
+END_1          Near      CODE:0035
+FIRST          Byte      DATA:0000
+SEC            Word      DATA:0001
+TH1            Dword     DATA:0003
+VAR            Word      CODE:0035
+
+SEGMENT        SIZE      BIT
+DATA           d         32
+CODE           35        32
+
+SEGMENT        DESTINATION    
+CS             Nothing        
+DS             Nothing        
+ES             Nothing        
+FS             Nothing        
+GS             Nothing        
+SS             Nothing        

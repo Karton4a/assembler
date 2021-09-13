@@ -1,0 +1,41 @@
+0000000000             Data SEGMENT 
+0000000000 7f              FIRST DB 1111111b
+0000000001 0f ff           sec dw 0fffh
+0000000003 00 00 00 0c     Th1 DD 12
+0000000007             Data ENDS
+            
+[ 7 ] : Parser error usupported construction Code 
+            
+[ 9 ] : Parser error no active segment begin:
+            
+[ 11 ] : Parser error no active segment Stc
+[ 12 ] : Parser error no active segment Dec eax
+[ 13 ] : Parser error no active segment Pop dword ptr [edx + esi]
+[ 14 ] : Parser error no active segment Bsr eax,ebx
+[ 15 ] : Parser error no active segment jmp end_1
+[ 16 ] : Parser error no active segment And al,[ebx+ecx]
+[ 17 ] : Parser error no active segment Or dword ptr [ebx + esi] , ecx
+[ 18 ] : Parser error no active segment Mov al,0fh
+[ 19 ] : Parser error no active segment Add dword ptr cs:[edx + ecx],1fffffffh
+[ 20 ] : Parser error no active segment Jz end_1
+[ 21 ] : Parser error no active segment jmp begin
+[ 22 ] : Parser error no active segment var dw 0fffh
+[ 23 ] : Parser error no active segment end_1:
+[ 24 ] : Parser error usupported construction  ENDS
+0000000000             END
+
+SymbolName     Type      Value
+FIRST          Byte      DATA:0000
+SEC            Word      DATA:0001
+TH1            Dword     DATA:0003
+
+SEGMENT        SIZE      BIT
+DATA           7         32
+
+SEGMENT        DESTINATION    
+CS             Nothing        
+DS             Nothing        
+ES             Nothing        
+FS             Nothing        
+GS             Nothing        
+SS             Nothing        

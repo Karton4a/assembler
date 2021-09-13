@@ -1,0 +1,69 @@
+0000000000    Data SEGMENT 
+0000000000        FIRST DB 011111111b
+0000000001        sec dw 0fffh
+0000000003        Th1 DD 12
+0000000007    a db -128
+0000000008    b dw 1234h
+000000000a    c dw 0afffh
+000000000c    d dd -05
+0000000010    f dd 0ab123456h
+0000000014    Data ENDS
+0000000000    
+0000000000    Code SEGMENT 
+0000000000    Jz begin
+0000000006    begin:
+0000000006    Jz begin
+0000000008    Stc
+0000000009    Dec eax
+000000000a    Dec bh
+000000000c    Pop dword ptr [edx + esi]
+000000000f    Pop dword ptr [ebp + esi]
+0000000013    Pop dword ptr ds:[ebp + esi]
+0000000018    Pop dword ptr ss:[ebp + esi]
+000000001c    Pop dword ptr gs:[ebp + esi]
+0000000021    Bsr eax,ebx
+0000000024    Bsr esp,ebx
+0000000027    jmp end_1
+000000002c    And al,[ebx+ecx]
+000000002f    Or dword ptr [ebx + esi] , ecx
+0000000032    Or byte ptr [ebp + esi] , ch
+0000000036    Or byte ptr ss:[ebp + esi] , ch
+000000003a    Or byte ptr ds:[ebp + esi] , ch
+000000003f    Or byte ptr es:[ebp + esi] , ch
+0000000044    Mov al,-1
+0000000046    Mov edx,-1
+000000004b    Add dword ptr cs:[edx + ecx],1fffffffh
+0000000053    Jz end_1
+0000000059    jmp begin
+000000005b    var dw 0fffh
+000000005d    jmp end_1
+0000000062    end_1:
+0000000062    jmp end_1
+0000000064    Jz begin
+0000000066    Or [ebp + esi] , ch
+000000006a    Code ENDS
+0000000000    END
+SymbolName     Type      Value
+A              Byte      DATA:0007
+B              Word      DATA:0008
+BEGIN          Near      CODE:0006
+C              Word      DATA:000a
+D              Dword     DATA:000c
+END_1          Near      CODE:0062
+F              Dword     DATA:0010
+FIRST          Byte      DATA:0000
+SEC            Word      DATA:0001
+TH1            Dword     DATA:0003
+VAR            Word      CODE:005b
+
+SEGMENT        SIZE      BIT
+DATA           14        32
+CODE           6a        32
+
+SEGMENT        DESTINATION    
+CS             Nothing        
+DS             Nothing        
+ES             Nothing        
+FS             Nothing        
+GS             Nothing        
+SS             Nothing        
